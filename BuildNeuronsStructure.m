@@ -109,13 +109,22 @@ for k = 1:numFish
             
             % 2p stim frames
             numFrames = size(traces,1) - 2;
-            for h = 1:size(neurons(m).trialNums,1)
+            for h = 1:size(neurons(roiNum).trialNums,1)
                 stims(h) = (numFrames * (h-1)) + stimFrame-2;
             end
             neurons(roiNum).stimFrames = stims;
+            clear stims
             
             % 2p behavior onset frames
-            neurons(roiNum).bhavFrames = GetBehaviorOnsets(behaviorDataAll,k,l,neurons(m).trialNums,numFrames);
+            neurons(roiNum).bhavFrames = GetBehaviorOnsets(behaviorDataAll,k,l,neurons(roiNum).trialNums,numFrames);
+            
+            % Stimulus response boolean vector
+            neurons(roiNum).stimResponseBool = CheckForResponses(neurons(roiNum).stimFrames,neurons(roiNum).bhavFrames);
+            
+            % Subsampled boolean behavior vector for ROC ("target" vector)
+            bhavTarget = zeros(size(neurons(roiNum).traces));
+            bhavTarget(neurons(roiNum).bhavFrames) = 1;
+            neurons(roiNum).bhavBool = bhavTarget;
             
         end
         totNumROIs = totNumROIs + numROIs; % Update total number of ROIs
@@ -123,10 +132,3 @@ for k = 1:numFish
 end
 
 clearvars -except neurons behaviorDataAll fluoDataAll
-            
-            
-            
-            
-            
-            
-            
