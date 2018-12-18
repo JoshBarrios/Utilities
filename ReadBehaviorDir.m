@@ -2,7 +2,7 @@
 parentPath = uigetdir;
 pd = dir(parentPath);
 
-for l = 3:length(pd)
+for l = 5:length(pd)
     try
     path = pd(l).name;
     d = dir(fullfile(parentPath,path));
@@ -31,5 +31,6 @@ for l = 3:length(pd)
     catch
         display('Error')
     end
+    clear imBool pictures
     
 end
