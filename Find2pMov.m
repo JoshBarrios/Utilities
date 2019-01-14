@@ -14,7 +14,7 @@ for l = 1:length(subDir)
 end
 if sum(fileBool) > 1
     for l = 1:length(subDir)
-        if contains(subDir(l).name,'ch1.tif')
+        if contains(subDir(l).name,'ch_1.tif')
             fileBool(l) = 1;
         else
             fileBool(l) = 0;
