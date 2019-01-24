@@ -1,5 +1,5 @@
-% function pictures = ReadBehaviorDir(parentPath)
-parentPath = uigetdir;
+function pictures = ReadBehaviorDir(parentPath)
+% parentPath = uigetdir;
 pd = dir(parentPath);
 
 for l = 5:length(pd)
