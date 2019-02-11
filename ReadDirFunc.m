@@ -1,5 +1,8 @@
 function pictures = ReadDirFunc(path)
 % path = uigetdir;
+tic;
+display('=====Reading in directory=====');
+
 d = dir(path);
 
 for k = 1:length(d)
@@ -24,3 +27,5 @@ parfor m = 1:num_images
         fullname = fullfile(path,imname);
         pictures(:,:,m) = imread(fullname);
 end    
+
+display(strcat('=====Finished reading directory_', num2str(toc),'s elapsed====='));
