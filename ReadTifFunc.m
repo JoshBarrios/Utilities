@@ -9,3 +9,5 @@ mov = zeros(height,width,num_images);
 for k = 1:num_images
     mov(:,:,k) = imread(path,k,'Info',info);
 end
+
+mov = uint8(mov);

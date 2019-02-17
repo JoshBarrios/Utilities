@@ -1,9 +1,9 @@
 %% Josh Barrios 12/10/2018
 % Extracts fish number, plane number, and trial number from folder name.
 
-function [fishNum,planeNum,trialNum] = GetTrialInfo(subPath);
+function [fishNum,planeNum,trialNum] = GetTrialInfo(subPath)
 
-subPath = subPath(end-20:end);
+% subPath = subPath(end-20:end);
 
 % Find fishNum
 if contains(subPath,'Fish')

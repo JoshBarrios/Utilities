@@ -28,4 +28,6 @@ parfor m = 1:num_images
         pictures(:,:,m) = imread(fullname);
 end    
 
+pictures = uint8(pictures);
+
 display(strcat('=====Finished reading directory_', num2str(toc),'s elapsed====='));
