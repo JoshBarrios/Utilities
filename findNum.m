@@ -5,12 +5,14 @@
 
 function num = findNum(string)
 
-
-
-for k = 1:length(string)
-    numBool(k) = ~isnan(str2double(string(k)));
+if ~isempty(string)
+    for k = 1:length(string)
+        numBool(k) = ~isnan(str2double(string(k)));
+    end
+    
+    seqs = findseq(double(numBool));
+    
+    num = str2double(string(seqs(1,2):seqs(1,3)));
+else
+    num = NaN;
 end
-
-seqs = findseq(double(numBool));
-
-num = str2double(string(seqs(1,2):seqs(1,3)));
