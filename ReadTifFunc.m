@@ -9,3 +9,5 @@ height = info.Height;
 for k = 1:num_images
     mov(:,:,k) = imread(path,'tif',k,'Info',info);
 end
+
+mov = uint8(mov);

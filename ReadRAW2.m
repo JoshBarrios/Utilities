@@ -29,6 +29,7 @@ end
 imData = cell2mat(imData);
 imData = reshape(imData,[sizy,sizx,file_en]);
 fclose(fp);
+imData = uint8(imData);
 
 elapsedTime = toc;
 display(strcat('========== Finished reading RAW image...',num2str(elapsedTime),' seconds elapsed =========='));
