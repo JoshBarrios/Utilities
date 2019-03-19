@@ -12,7 +12,12 @@ if ~isempty(string)
     
     seqs = findseq(single(numBool));
     
-    num = str2double(string(seqs(1,2):seqs(1,3)));
+    if ~isempty(seqs)                   % seqs doesn't find single numbers
+        num = str2double(string(seqs(1,2):seqs(1,3)));
+    else
+        inds = find(numBool);
+        num = inds(1);
+    end
 else
     num = NaN;
 end

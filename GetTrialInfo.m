@@ -3,7 +3,9 @@
 
 function [fishNum,planeNum,trialNum] = GetTrialInfo(subPath)
 
-% subPath = subPath(end-20:end);
+folders = split(subPath,"\");
+
+subPath = folders{end};
 
 % Find fishNum
 if contains(subPath,'Fish')
@@ -16,6 +18,7 @@ if contains(subPath,'Fish')
     
 else contains(subPath,'F');
     fishInd = strfind(subPath,'F');
+    fishInd = fishInd(end);
     if fishInd + 2 > length(subPath)
         fishNum = str2num(subPath(fishInd + 1));
     else 
@@ -34,6 +37,7 @@ if contains(subPath,'Plane')
     
 else contains(subPath,'P');
     planeInd = strfind(subPath,'P');
+    planeInd = planeInd(end);
     if planeInd + 2 > length(subPath)
         planeNum = str2num(subPath(planeInd + 1));
     else 
@@ -52,6 +56,7 @@ if contains(subPath,'Trial')
     
 else contains(subPath,'T');
     trialInd = strfind(subPath,'T');
+    trialInd = trialInd(end);
     if trialInd + 2 > length(subPath)
         trialNum = str2num(subPath(trialInd + 1));
     else 
