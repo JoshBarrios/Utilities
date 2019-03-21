@@ -19,8 +19,7 @@ if contains(subPath,'Fish')
 else contains(subPath,'F');
     fishInd = strfind(subPath,'F');
     if ~isempty(fishInd)
-        fishInd = fishInd(end);
-    end
+    fishInd = fishInd(end);
     if fishInd + 2 > length(subPath)
         fishNum = str2num(subPath(fishInd + 1));
     else 
@@ -39,9 +38,7 @@ if contains(subPath,'Plane')
     
 else contains(subPath,'P');
     planeInd = strfind(subPath,'P');
-    if ~isempty(planeInd)
-        planeInd = planeInd(end);
-    end
+    planeInd = planeInd(end);
     if planeInd + 2 > length(subPath)
         planeNum = str2num(subPath(planeInd + 1));
     else 
@@ -62,9 +59,7 @@ if contains(subPath,'Trial')
     
 else contains(subPath,'T');
     trialInd = strfind(subPath,'T');
-    if ~isempty(trialInd)
-        trialInd = trialInd(end);
-    end
+    trialInd = trialInd(end);
     if trialInd + 2 > length(subPath)
         trialNum = str2num(subPath(trialInd + 1));
     else 
