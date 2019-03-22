@@ -16,7 +16,7 @@ if ~isempty(string)
         num = str2double(string(seqs(1,2):seqs(1,3)));
     else
         inds = find(numBool);
-        num = str2double(string(inds(1)));
+        num = string(inds(1));
     end
 else
     num = NaN;
