@@ -10,13 +10,14 @@ if ~isempty(string)
         numBool(k) = ~isnan(str2double(string(k)));
     end
     
+    first = find(numBool);
+    firstNum = str2double(string(first(1)));
     seqs = findseq(single(numBool));
     
-    if ~isempty(seqs)                   % seqs doesn't find single numbers
+    if ~isempty(seqs) && seqs(1,2) == first(1)      % seqs doesn't find single numbers
         num = str2double(string(seqs(1,2):seqs(1,3)));
     else
-        inds = find(numBool);
-        num = str2double(string(inds(1)));
+        num = firstNum;
     end
 else
     num = NaN;
