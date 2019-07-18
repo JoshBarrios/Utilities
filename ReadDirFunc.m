@@ -19,7 +19,7 @@ num_images = length(imInds);
     
 pictures(:,:,1) = imread(fullfile(parentPath,d(imInds(1)).name));
 [picx,picy] = size(pictures(:,:,1));
-pictures = zeros(picx,picy,num_images);
+pictures = zeros(picx,picy,num_images,'uint8');
 
 parfor m = 1:num_images
     ind = imInds(m);

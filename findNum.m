@@ -10,14 +10,18 @@ if ~isempty(string)
         numBool(k) = ~isnan(str2double(string(k)));
     end
     
-    first = find(numBool);
-    firstNum = str2double(string(first(1)));
-    seqs = findseq(single(numBool));
-    
-    if ~isempty(seqs) && seqs(1,2) == first(1)      % seqs doesn't find single numbers
-        num = str2double(string(seqs(1,2):seqs(1,3)));
+    if logical(sum(numBool))
+        first = find(numBool);
+        firstNum = str2double(string(first(1)));
+        seqs = findseq(single(numBool));
+        
+        if ~isempty(seqs) && seqs(1,2) == first(1)      % seqs doesn't find single numbers
+            num = str2double(string(seqs(1,2):seqs(1,3)));
+        else
+            num = firstNum;
+        end
     else
-        num = firstNum;
+        num = NaN;
     end
 else
     num = NaN;
