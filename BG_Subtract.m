@@ -36,6 +36,11 @@ if GPU_bool
     end
     
 else
+    if size(mov,3) > 500
+        frameEnd = 500;
+    else
+        frameEnd = size(mov,3);
+    end
     smoothMov = imgaussfilt(mov);
     RFSmov = diff(smoothMov(:,1:round((size(mov,1)/3)*2),1:frameEnd),2,3);
     RFS_trace = squeeze(std(std(single(RFSmov),[],1),[],2));
