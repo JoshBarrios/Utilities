@@ -6,9 +6,7 @@
 function num = findNum(string)
 
 if ~isempty(string)
-    for k = 1:length(string)
-        numBool(k) = ~isnan(str2double(string(k)));
-    end
+    numBool = isstrprop(string,'digit');
     
     if logical(sum(numBool))
         first = find(numBool);
