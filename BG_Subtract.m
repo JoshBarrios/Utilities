@@ -4,9 +4,9 @@
 % mov is a single precision 3D array, intended to be a movie of fish
 % behavior.
 % OUTPUTS:
-% subPics is a background-subtracted version of mov
+% sub_pics is a background-subtracted version of mov
 
-function subPics = BG_Subtract(mov)
+function sub_pics = BG_subtract(mov)
 
 %% Detect GPU
 
@@ -41,19 +41,19 @@ else
     else
         frameEnd = size(mov,3);
     end
-    smoothMov = imgaussfilt(mov);
-    RFSmov = diff(smoothMov(:,1:round((size(mov,1)/3)*2),1:frameEnd),2,3);
-    RFS_trace = squeeze(std(std(single(RFSmov),[],1),[],2));
+    smooth_mov = imgaussfilt(mov);
+    RFS_mov = diff(smooth_mov(:,1:round((size(mov,1)/3)*2),1:frameEnd),2,3);
+    RFS_trace = squeeze(std(std(single(RFS_mov),[],1),[],2));
 end
 
 %% Clean up RFS_trace, find frames with movement for min projecting
-minBoutLength = 36; % Assumes frame rate of 500 fps
+min_bout_length = 36; % Assumes frame rate of 500 fps
 clean_trace = single(RFS_trace > prctile(RFS_trace,50));
 seqs = findseq(clean_trace);
-% Remove sequences of length < minBoutLength
+% Remove sequences of length < min_bout_length
 for k = 1:size(seqs,1)
     
-    if seqs(k,1) == 1 && seqs(k,4) < minBoutLength
+    if seqs(k,1) == 1 && seqs(k,4) < min_bout_length
         clean_trace(seqs(k,2):seqs(k,3)) = 0;
     end
      
@@ -66,12 +66,12 @@ for k = 2:size(clean_trace,2) - 1
    end
     
 end
-% Remove inter-bout-intervals < minBoutLength
-inBouts = findseq(clean_trace);
-for k = 1:size(inBouts,1)
+% Remove inter-bout-intervals < min_bout_length
+in_bouts = findseq(clean_trace);
+for k = 1:size(in_bouts,1)
     
-    if inBouts(k,1) == 0 && inBouts(k,4) < minBoutLength
-        clean_trace(inBouts(k,2):inBouts(k,3)) = 1;
+    if in_bouts(k,1) == 0 && in_bouts(k,4) < min_bout_length
+        clean_trace(in_bouts(k,2):in_bouts(k,3)) = 1;
     end
      
 end
@@ -97,31 +97,31 @@ else
 end
 
 if sub_frame < 51
-    minP = min(mov(:,:,1:sub_frame + 50),[],3);
+    min_point = min(mov(:,:,1:sub_frame + 50),[],3);
 else if sub_frame > size(mov,3) - 51
-        minP = min(mov(:,:,sub_frame - 50:size(mov,3)),[],3);
+        min_point = min(mov(:,:,sub_frame - 50:size(mov,3)),[],3);
     else
-        minP = min(mov(:,:,sub_frame - 50:sub_frame + 50),[],3);
+        min_point = min(mov(:,:,sub_frame - 50:sub_frame + 50),[],3);
     end
 end
 
 %% Run background subtraction
-subPics = zeros(size(mov),'single');
+sub_pics = zeros(size(mov),'single');
 if GPU_bool
     for k = 1:num_chunks-1
         chunk_inds = [(k-1)*chunk_size + 1 : (k-1)*chunk_size + chunk_size];
         chunk = gpuArray(mov(:,:,chunk_inds));
-        chunk = pagefun(@minus,chunk,minP);
+        chunk = pagefun(@minus,chunk,min_point);
         chunk = imgaussfilt(chunk,4);
-        subPics(:,:,chunk_inds) = gather(chunk);
+        sub_pics(:,:,chunk_inds) = gather(chunk);
     end
     clear chunk
     last_chunk_inds = [chunk_inds(end)+1:size(mov,3)];
     last_chunk = gpuArray(mov(:,:,last_chunk_inds));
-    last_chunk = pagefun(@minus,last_chunk,minP);
+    last_chunk = pagefun(@minus,last_chunk,min_point);
     last_chunk = imgaussfilt(last_chunk,4);
-    subPics(:,:,last_chunk_inds) = gather(last_chunk);
+    sub_pics(:,:,last_chunk_inds) = gather(last_chunk);
 else
-    subPics = mov - minP;
-    subPics = imgaussfilt(subPics,4);
+    sub_pics = mov - min_point;
+    sub_pics = imgaussfilt(sub_pics,4);
 end

@@ -1,30 +1,30 @@
-function pictures = ReadDirFunc(parentPath)
+function pictures = ReadDirFunc(parent_path)
 % path = uigetdir;
 tic;
 display('=====Reading in directory=====');
 
-d = dir(parentPath);
+d = dir(parent_path);
 
 for k = 1:length(d)
     if contains(d(k).name,'.tif')
-        isIm(k) = 1;
+        is_im(k) = 1;
     else
-        isIm(k) = 0;
+        is_im(k) = 0;
     end
 end
 
-imInds = find(isIm);
+im_inds = find(is_im);
 
-num_images = length(imInds);
+num_images = length(im_inds);
     
-pictures(:,:,1) = imread(fullfile(parentPath,d(imInds(1)).name));
-[picx,picy] = size(pictures(:,:,1));
-pictures = zeros(picx,picy,num_images,'uint8');
+pictures(:,:,1) = imread(fullfile(parent_path,d(im_inds(1)).name));
+[pic_x,pic_y] = size(pictures(:,:,1));
+pictures = zeros(pic_x,pic_y,num_images,'uint8');
 
 parfor m = 1:num_images
-    ind = imInds(m);
-        imname = d(ind).name;
-        fullname = fullfile(parentPath,imname);
+    ind = im_inds(m);
+        im_name = d(ind).name;
+        fullname = fullfile(parent_path,im_name);
         pictures(:,:,m) = imread(fullname);
 end    
 

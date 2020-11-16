@@ -6,17 +6,17 @@
 function num = findNum(string)
 
 if ~isempty(string)
-    numBool = isstrprop(string,'digit');
+    num_bool = isstrprop(string,'digit');
     
-    if logical(sum(numBool))
-        first = find(numBool);
-        firstNum = str2double(string(first(1)));
-        seqs = findseq(single(numBool));
+    if logical(sum(num_bool))
+        first = find(num_bool);
+        first_num = str2double(string(first(1)));
+        seqs = findseq(single(num_bool));
         
         if ~isempty(seqs) && seqs(1,2) == first(1)      % seqs doesn't find single numbers
             num = str2double(string(seqs(1,2):seqs(1,3)));
         else
-            num = firstNum;
+            num = first_num;
         end
     else
         num = NaN;

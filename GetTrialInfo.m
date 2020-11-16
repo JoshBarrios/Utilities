@@ -1,84 +1,84 @@
 %% Josh Barrios 12/10/2018
 % Extracts fish number, plane number, and trial number from folder name.
 
-function [fishNum,planeNum,trialNum] = GetTrialInfo(subPath)
+function [fish_num,plane_num,trial_num] = GetTrialInfo(sub_path)
 
-folders = split(subPath,"\");
+folders = split(sub_path,"\");
 
-subPath = folders{end};
+sub_path = folders{end};
 
-% Find fishNum
-if contains(subPath,'Fish')
-    fishInd = strfind(subPath,'Fish');
-    if fishInd + 5 > length(subPath)
-        fishNum = str2num(subPath(fishInd + 4));
+% Find fish_num
+if contains(sub_path,'Fish')
+    fish_ind = strfind(sub_path,'Fish');
+    if fish_ind + 5 > length(sub_path)
+        fish_num = str2num(sub_path(fish_ind + 4));
     else 
-        fishNum = findNum(subPath(fishInd + 4:end));
+        fish_num = findNum(sub_path(fish_ind + 4:end));
     end
     
-else contains(subPath,'F');
-    fishInd = strfind(subPath,'F');
-    if ~isempty(fishInd)
-        fishInd = fishInd(end);
+else contains(sub_path,'F');
+    fish_ind = strfind(sub_path,'F');
+    if ~isempty(fish_ind)
+        fish_ind = fish_ind(end);
     end
-    if fishInd + 2 > length(subPath)
-        fishNum = str2num(subPath(fishInd + 1));
+    if fish_ind + 2 > length(sub_path)
+        fish_num = str2num(sub_path(fish_ind + 1));
     else 
-        fishNum = findNum(subPath(fishInd + 1:end));
+        fish_num = findNum(sub_path(fish_ind + 1:end));
     end
 end
 
-% Find planeNum
-if contains(subPath,'Plane')
-    planeInd = strfind(subPath,'Plane');
-    if planeInd + 6 > length(subPath)
-        planeNum = str2num(subPath(planeInd + 5));
+% Find plane_num
+if contains(sub_path,'Plane')
+    plane_ind = strfind(sub_path,'Plane');
+    if plane_ind + 6 > length(sub_path)
+        plane_num = str2num(sub_path(plane_ind + 5));
     else 
-        planeNum = findNum(subPath(planeInd + 5:end));
+        plane_num = findNum(sub_path(plane_ind + 5:end));
     end
     
-else contains(subPath,'P');
-    planeInd = strfind(subPath,'P');
-    if ~isempty(planeInd)
-        planeInd = planeInd(end);
+else contains(sub_path,'P');
+    plane_ind = strfind(sub_path,'P');
+    if ~isempty(plane_ind)
+        plane_ind = plane_ind(end);
     end
-    if planeInd + 2 > length(subPath)
-        planeNum = str2num(subPath(planeInd + 1));
+    if plane_ind + 2 > length(sub_path)
+        plane_num = str2num(sub_path(plane_ind + 1));
     else 
-        planeNum = findNum(subPath(planeInd + 1:end));
+        plane_num = findNum(sub_path(plane_ind + 1:end));
     end
 end
 
 
 
-% Find trialNum
-if contains(subPath,'Trial')
-    trialInd = strfind(subPath,'Trial');
-    if trialInd + 6 > length(subPath)
-        trialNum = str2num(subPath(trialInd + 5));
+% Find trial_num
+if contains(sub_path,'Trial')
+    trial_ind = strfind(sub_path,'Trial');
+    if trial_ind + 6 > length(sub_path)
+        trial_num = str2num(sub_path(trial_ind + 5));
     else 
-        trialNum = findNum(subPath(trialInd + 5:end));
+        trial_num = findNum(sub_path(trial_ind + 5:end));
     end
     
-else contains(subPath,'T');
-    trialInd = strfind(subPath,'T');
-    if ~isempty(trialInd)
-        trialInd = trialInd(end);
+else contains(sub_path,'T');
+    trial_ind = strfind(sub_path,'T');
+    if ~isempty(trial_ind)
+        trial_ind = trial_ind(end);
     end
-    if trialInd + 2 > length(subPath)
-        trialNum = str2num(subPath(trialInd + 1));
+    if trial_ind + 2 > length(sub_path)
+        trial_num = str2num(sub_path(trial_ind + 1));
     else 
-        trialNum = findNum(subPath(trialInd + 1:end));
+        trial_num = findNum(sub_path(trial_ind + 1:end));
     end
 end
 
-if isempty(fishNum)
-    fishNum = NaN;
+if isempty(fish_num)
+    fish_num = NaN;
 end
-if isempty(planeNum)
-    planeNum = NaN;
+if isempty(plane_num)
+    plane_num = NaN;
 end
-if isempty(trialNum)
-    trialNum = NaN;
+if isempty(trial_num)
+    trial_num = NaN;
 end
 
